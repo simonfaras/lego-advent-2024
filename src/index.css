@@ -1,5 +1,21 @@
+@font-face {
+  font-family: "Mountains of Christmas", serif;
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  src: url("https://fonts.googleapis.com/css2?family=MountainsofChristmas");
+}
+
+@font-face {
+  font-family: "Mountains of Christmas", serif;
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+  src: url("https://fonts.googleapis.com/css2?family=MountainsofChristmas");
+}
+
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Mountains of Christmas", serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -11,58 +27,105 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+  --red: #ee2e31;
+  --beige: #f4c095;
+  --green-base: #1d7874;
+  --green-dark: #071e22;
+  --green-light: #679289;
 }
 
 body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  background-color: var(--green-light);
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+.text-xmas {
+  font-family: "Mountains of Christmas", serif;
 }
 
-button {
+#app {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+main {
+  display: grid;
+  gap: 0.5rem;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.day {
+  font-family: "Mountains of Christmas";
+  font-weight: bold;
+  font-size: 4rem;
+  color: var(--beige);
+  border: 5px var(--green-dark) solid;
+  background-color: var(--red);
   border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  padding: 1rem;
+  aspect-ratio: 1 / 1;
+  opacity: 0.5;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+.day.day.available {
+  opacity: 1;
+  cursor: po;
+}
+
+.day.available:hover {
+  border-color: var(--green-base);
+}
+
+dialog {
+  width: 80vw;
+  height: 80vh;
+  padding: 3rem;
+}
+
+.slider {
+  width: 100%;
+  overflow: hidden;
+}
+
+.slides {
+  display: grid;
+  grid-template-columns: max-content;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.slides::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+.slides::-webkit-scrollbar-thumb {
+  background: black;
+  border-radius: 10px;
+}
+
+.slides::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.slides > div {
+  max-width: 100%;
+  scroll-snap-align: start;
+  flex-shrink: 0;
+  border-radius: 1rem;
+  transform-origin: center center;
+  transform: scale(1);
+  transition: transform 0.5s;
+  position: relative;
+
+  display: flex;
+}
+
+.slides img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
 }

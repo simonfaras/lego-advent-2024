@@ -1,18 +1,26 @@
-type DayConfig = {
-  day: number;
-  book: 1 | 2;
-  spans: [number, number][];
+export const imagesForDays: Record<number, number> = {
+  1: 1,
+  2: 6,
+  3: 6,
+  4: 9,
+  5: 1,
+  6: 6,
+  7: 8,
+  8: 7,
+  9: 1,
+  10: 7,
+  11: 15,
+  12: 11,
+  13: 6,
+  14: 6,
+  15: 6,
+  16: 20,
+  17: 17,
+  18: 1,
+  19: 12,
+  20: 13,
+  21: 16,
+  22: 6,
+  23: 4,
+  24: 4,
 };
-
-export const imagesForDays: DayConfig[] = [
-  {
-    day: 1,
-    book: 1,
-    spans: [
-      [1, 3],
-      [2, 4],
-      [9, 11],
-      [12, 13],
-    ],
-  },
-];

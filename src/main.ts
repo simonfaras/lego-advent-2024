@@ -45,32 +45,77 @@ root.addEventListener("click", (event) => {
 });
 
 const handleOnDayClick = (day: number) => {
-  const config = imagesForDays.find((d) => d.day === day);
+  const imageCountForDay = imagesForDays[day];
 
   console.log(`=====> `, imagesForDays);
 
-  if (config == null) {
+  if (imageCountForDay == null) {
     console.log("Unknown day", day);
     return;
   }
 
-  const getSlideId = ([from, to]: [number, number]) =>
-    [config.book, from, to].join("-");
+  const getSlideId = (page: number) => `${day}-${page}`;
+
+  const pages = Array(imageCountForDay)
+    .fill(1)
+    .map((base, index) => base + index);
 
   dialog.innerHTML = `
     <div class="slider">
-      
+      <a class="prev nav">${arrow}</a>
+      <a class="next nav">${arrow}</a>
       <div class="slides">
-      ${config.spans
+      ${pages
         .map(
-          (span) =>
-            `<div><img src="/lego-advent-2024/images/${getSlideId(
-              span
-            )}.png" /></div>`
+          (page) =>
+            `<div id="#${getSlideId(page)}" data-page=${page}>
+          <div>
+          <img src="/lego-advent-2024/images/${getSlideId(
+            page
+          )}.png" /></div></div>`
         )
         .join("")}
       </div>
     </div>
   `;
   dialog.showModal();
+
+  const slides = dialog.querySelector(".slides");
+
+  dialog.querySelectorAll(".nav").forEach((el) =>
+    el.addEventListener("click", (event) => {
+      const target = event.currentTarget as HTMLElement;
+
+      const isNext = target.classList.contains("next");
+      slides?.scrollBy({ left: isNext ? 1 : -1, behavior: "smooth" });
+    })
+  );
+
+  const prev = dialog.querySelector(".prev");
+  const next = dialog.querySelector(".next");
+
+  dialog
+    .querySelector(".slides")
+    ?.addEventListener("scrollsnapchange", (event) => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const target = (event as any).snapTargetInline as HTMLElement;
+      const page = Number(target.dataset.page);
+
+      if (!page) {
+        console.warn("Missing page for target", target);
+        return;
+      }
+
+      prev?.classList.toggle("hidden", page === 1);
+      next?.classList.toggle("hidden", page === imageCountForDay);
+    });
 };
+
+const arrow = `
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+    <g>
+      <path d="M12,2A10,10,0,1,0,22,12,10.011,10.011,0,0,0,12,2Zm0,18a8,8,0,1,1,8-8A8.009,8.009,0,0,1,12,20Z"/>
+      <polygon points="13.293 7.293 8.586 12 13.293 16.707 14.707 15.293 11.414 12 14.707 8.707 13.293 7.293"/>
+  </g>
+  </svg>
+`;

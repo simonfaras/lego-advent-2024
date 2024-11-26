@@ -80,7 +80,6 @@ main {
 
 dialog {
   width: 80vw;
-  height: 80vh;
   padding: 3rem;
 }
 
@@ -90,12 +89,16 @@ dialog {
 }
 
 .slides {
-  display: grid;
-  grid-template-columns: max-content;
+  display: flex;
+  gap: 2rem;
+  flex-direction: row;
+  position: relative;
+
+  /* grid-template-columns: max-content; */
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   scroll-behavior: auto;
-  -webkit-overflow-scrolling: touch;
+  /* -webkit-overflow-scrolling: touch; */
 }
 
 .slides::-webkit-scrollbar {
@@ -104,8 +107,7 @@ dialog {
 }
 
 .slides::-webkit-scrollbar-thumb {
-  background: black;
-  border-radius: 10px;
+  visibility: hidden;
 }
 
 .slides::-webkit-scrollbar-track {
@@ -127,5 +129,51 @@ dialog {
 
 .slides img {
   width: 100%;
-  aspect-ratio: 1 / 1;
+  height: 100%;
+  object-fit: scale-down;
+}
+
+.slider .nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  background-color: transparent;
+  color: var(--green-light);
+  border-radius: 100%;
+  border: none;
+  font-size: 3rem;
+  z-index: 100;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  transition: all 0.2s;
+  visibility: inherit;
+  opacity: 1;
+}
+
+.slider .nav.hidden {
+  visibility: hidden;
+  opacity: 0;
+}
+
+.slider .nav:hover {
+  color: var(--green-base);
+}
+
+.slider .nav svg {
+  width: 6rem;
+  height: 6rem;
+}
+
+.next {
+  right: 0;
+}
+
+.prev {
+  left: 0;
+}
+
+.next svg {
+  transform: rotate(180deg);
 }

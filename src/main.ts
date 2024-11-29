@@ -6,7 +6,7 @@ const days = Array(24)
   .map((base, index) => base + index);
 
 // const today = new Date(Date.now()).getDate();
-const today = 12;
+const today = 24;
 
 const root = document.querySelector<HTMLDivElement>("#app")!;
 
@@ -60,7 +60,7 @@ const handleOnDayClick = (day: number) => {
           (page) =>
             `<div id="#${getSlideId(page)}" data-page=${page} class="slide">
           <div>
-          <img src="/lego-advent-2024/images/${getSlideId(page)}.png" />
+          <img src="/images/${getSlideId(page)}.png" />
           </div></div>`
         )
         .join("")}

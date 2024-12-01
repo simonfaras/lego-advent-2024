@@ -5,7 +5,7 @@ const days = Array(24)
   .fill(1)
   .map((base, index) => base + index);
 
-const today = new Date(Date.now()).getDate();
+const today = () => new Date(Date.now()).getDate();
 // const today = 24;
 
 const root = document.querySelector<HTMLDivElement>("#app")!;
@@ -14,7 +14,7 @@ root.innerHTML = `
   <main>
     ${days
       .map((day) => {
-        const isAvailable = day <= today;
+        const isAvailable = day <= today();
 
         return `<button class="day" ${
           !isAvailable ? "disabled" : ""

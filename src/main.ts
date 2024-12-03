@@ -5,13 +5,18 @@ const days = Array(24)
   .fill(1)
   .map((base, index) => base + index);
 
-// const today = new Date(Date.now()).getDate();
-const today = 12;
+const debugDay = Number.parseInt(
+  new URLSearchParams(window.location.search).get("day") ?? ""
+);
+
+const today = !isNaN(debugDay) ? debugDay : new Date(Date.now()).getDate();
 
 const root = document.querySelector<HTMLDivElement>("#app")!;
 
 root.innerHTML = `
   <main>
+    <h1>Bims & Ines Lego-kalender 2024</h1>
+    <div class="days">
     ${days
       .map((day) => {
         const isAvailable = day <= today;
@@ -21,6 +26,7 @@ root.innerHTML = `
         }>${day}</button>`;
       })
       .join("")}
+    </div>
     <dialog id="day-dialog" />
   </main>
 `;

@@ -50,7 +50,13 @@ body {
   text-align: center;
 }
 
-main {
+
+h1 {
+  font-size: 5rem;
+  color: var(--beige);
+}
+
+.days {
   display: grid;
   gap: 0.5rem;
   grid-template-columns: repeat(4, 1fr);
